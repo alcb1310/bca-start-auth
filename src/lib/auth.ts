@@ -15,4 +15,7 @@ export const auth = betterAuth({
         account,
         verification,
     },
+    emailAndPassword: {
+        enabled: true,
+    },
 });
