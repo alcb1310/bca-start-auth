@@ -6,6 +6,11 @@
 - [Better Auth](https://better-auth.com/)
 - [Drizzle ORM](https://orm.drizzle.team/)
 
+### Styling
+
+- [Tailwind](https://tailwindcss.com/)
+- [Shadcn UI](https://ui.shadcn.com/docs/)
+
 ## Installation
 
 Add the following to your `.env` file:
@@ -18,7 +23,7 @@ BETTER_AUTH_URL=${BETTER_AUTH_URL} # not sure yet if this is needed
 
 ```bash
 pnpm install
-npx drizzle-kit migrate
+npx drizzle-kit push
 ```
 
 ## Tools
