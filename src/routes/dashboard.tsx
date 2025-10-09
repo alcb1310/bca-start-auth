@@ -10,7 +10,7 @@ export const Route = createFileRoute("/dashboard")({
     },
     loader: async ({ context }) => {
         if (!context.user.id) {
-            throw redirect({ to: "/" });
+            throw redirect({ to: "/login" });
         }
 
         return {
@@ -28,7 +28,7 @@ function RouteComponent() {
             {},
             {
                 onSuccess: () => {
-                    navigate({ to: "/" });
+                    navigate({ to: "/login" });
                 },
             },
         );
