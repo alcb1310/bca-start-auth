@@ -1,6 +1,7 @@
 // src/routes/index.tsx
 
 import { Button } from "@/components/ui/button";
+import { H2 } from "@/components/ui/typography";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
@@ -10,7 +11,7 @@ export const Route = createFileRoute("/")({
 function Home() {
     return (
         <div>
-            <h1>Home</h1>
+            <H2>Home</H2>
 
             <Button>
                 <Link to="/dashboard">Dashboard</Link>

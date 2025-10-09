@@ -1,7 +1,7 @@
-import { H1 } from "@/components/ui/H1";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { H1 } from "@/components/ui/typography";
 import { signIn } from "@/lib/auth-client";
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { type ChangeEvent, type FormEvent, useState } from "react";
