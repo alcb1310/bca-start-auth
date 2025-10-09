@@ -1,3 +1,7 @@
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { H2 } from "@/components/ui/typography";
 import { signUp } from "@/lib/auth-client";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { type ChangeEvent, type FormEvent, useState } from "react";
@@ -61,12 +65,12 @@ function RouteComponent() {
 
     return (
         <div>
-            <h1>Register</h1>
+            <H2>Register</H2>
 
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="name">Name</label>
-                    <input
+                <div className="flex gap-2">
+                    <Label htmlFor="name">Name</Label>
+                    <Input
                         type="text"
                         placeholder="Name"
                         value={name}
@@ -74,9 +78,9 @@ function RouteComponent() {
                         required
                     />
                 </div>
-                <div>
-                    <label htmlFor="email">Email</label>
-                    <input
+                <div className="flex gap-2">
+                    <Label htmlFor="email">Email</Label>
+                    <Input
                         type="email"
                         placeholder="Email"
                         value={email}
@@ -84,9 +88,9 @@ function RouteComponent() {
                         required
                     />
                 </div>
-                <div>
-                    <label htmlFor="password">Password</label>
-                    <input
+                <div className="flex gap-2">
+                    <Label htmlFor="password">Password</Label>
+                    <Input
                         type="password"
                         placeholder="Password"
                         value={password}
@@ -94,13 +98,13 @@ function RouteComponent() {
                         required
                     />
                 </div>
-                <div>
-                    <button type="submit" disabled={enabled}>
+                <div className="flex gap-2">
+                    <Button variant="default" type="submit" disabled={enabled}>
                         Register
-                    </button>
-                    <button type="reset" onClick={handleReset}>
+                    </Button>
+                    <Button variant="secondary" type="reset" onClick={handleReset}>
                         Reset
-                    </button>
+                    </Button>
                 </div>
             </form>
         </div>
