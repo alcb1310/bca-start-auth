@@ -1,5 +1,5 @@
+import { signOut } from "@/lib/auth-client";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { signOut } from "../../lib/auth-client";
 
 export const Route = createFileRoute("/_authed/dashboard")({
     component: RouteComponent,

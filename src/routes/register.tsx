@@ -1,6 +1,6 @@
+import { signUp } from "@/lib/auth-client";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { type ChangeEvent, type FormEvent, useState } from "react";
-import { signUp } from "../lib/auth-client";
 
 export const Route = createFileRoute("/register")({
     component: RouteComponent,
