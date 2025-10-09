@@ -1,3 +1,5 @@
+import { Button } from "@/components/ui/button";
+import { H2, Parragraph } from "@/components/ui/typography";
 import { signOut } from "@/lib/auth-client";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 
@@ -22,12 +24,12 @@ function RouteComponent() {
 
     return (
         <div>
-            <h1>Dashboard</h1>
-            <p> User: {user.name}</p>
+            <H2>Dashboard</H2>
+            <Parragraph> User: {user.name}</Parragraph>
 
-            <button type="button" onClick={handleLogout}>
+            <Button variant="ghost" type="button" onClick={handleLogout}>
                 Logout
-            </button>
+            </Button>
         </div>
     );
 }
