@@ -11,7 +11,7 @@ function Home() {
         <div>
             <h1>Home</h1>
 
-            <Link to="/register">Register</Link>
+            <Link to="/dashboard">Dashboard</Link>
         </div>
     );
 }
