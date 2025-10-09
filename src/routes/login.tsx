@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { signIn } from "@/lib/auth-client";
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { type ChangeEvent, type FormEvent, useState } from "react";
@@ -67,7 +68,9 @@ function RouteComponent() {
                         onChange={handleChange}
                     />
                 </div>
-                <button type="submit">Login</button>
+                <Button variant="outline" type="submit">
+                    Login
+                </Button>
             </form>
             <Link to="/register">Register</Link>
         </div>
