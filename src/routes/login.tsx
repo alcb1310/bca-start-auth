@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { signIn } from "@/lib/auth-client";
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { type ChangeEvent, type FormEvent, useState } from "react";
@@ -50,7 +51,7 @@ function RouteComponent() {
             <h1>Login</h1>
             <form onSubmit={handleSubmit}>
                 <div className="flex gap-2">
-                    <label htmlFor="email">Email</label>
+                    <Label htmlFor="email">Email</Label>
                     <Input
                         type="email"
                         id="email"
@@ -60,7 +61,7 @@ function RouteComponent() {
                     />
                 </div>
                 <div className="flex gap-2">
-                    <label htmlFor="password">Password</label>
+                    <Label htmlFor="password">Password</Label>
                     <Input
                         type="password"
                         id="password"
