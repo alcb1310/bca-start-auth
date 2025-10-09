@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { signIn } from "@/lib/auth-client";
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { type ChangeEvent, type FormEvent, useState } from "react";
@@ -48,9 +49,9 @@ function RouteComponent() {
         <div>
             <h1>Login</h1>
             <form onSubmit={handleSubmit}>
-                <div>
+                <div className="flex gap-2">
                     <label htmlFor="email">Email</label>
-                    <input
+                    <Input
                         type="email"
                         id="email"
                         name="email"
@@ -58,9 +59,9 @@ function RouteComponent() {
                         onChange={handleChange}
                     />
                 </div>
-                <div>
+                <div className="flex gap-2">
                     <label htmlFor="password">Password</label>
-                    <input
+                    <Input
                         type="password"
                         id="password"
                         name="password"
@@ -68,11 +69,13 @@ function RouteComponent() {
                         onChange={handleChange}
                     />
                 </div>
-                <Button variant="outline" type="submit">
+                <Button variant="default" type="submit">
                     Login
                 </Button>
             </form>
-            <Link to="/register">Register</Link>
+            <Button variant="link" size="sm">
+                <Link to="/register">Register</Link>
+            </Button>
         </div>
     );
 }
