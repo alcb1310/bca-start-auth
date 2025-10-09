@@ -1,3 +1,4 @@
+import { H1 } from "@/components/ui/H1";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -48,7 +49,7 @@ function RouteComponent() {
 
     return (
         <div>
-            <h1>Login</h1>
+            <H1>Login</H1>
             <form onSubmit={handleSubmit}>
                 <div className="flex gap-2">
                     <Label htmlFor="email">Email</Label>
