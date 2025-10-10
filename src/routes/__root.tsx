@@ -11,6 +11,7 @@ import type { ReactNode } from 'react'
 
 import appCss from '../styles.css?url'
 import { ThemeProvider } from '@/components/theme/provider'
+import { ModeToggle } from '@/components/theme/mode-toggle'
 
 export const Route = createRootRoute({
     head: () => ({
@@ -40,6 +41,9 @@ function RootComponent() {
     return (
         <RootDocument>
             <ThemeProvider defaultTheme='dark' storageKey='bca-theme'>
+                <nav className='flex items-right justify-end p-4'>
+                    <ModeToggle />
+                </nav>
                 <Outlet />
             </ThemeProvider>
         </RootDocument>
