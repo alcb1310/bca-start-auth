@@ -20,6 +20,9 @@ importers:
       '@tailwindcss/vite':
         specifier: ^4.1.14
         version: 4.1.14(vite@7.1.9(@types/node@24.7.0)(jiti@2.6.1)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))
+      '@tanstack/react-form':
+        specifier: ^1.23.6
+        version: 1.23.6(@tanstack/react-start@1.132.48(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vite@7.1.9(@types/node@24.7.0)(jiti@2.6.1)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@tanstack/react-router':
         specifier: ^1.132.47
         version: 1.132.47(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -1362,15 +1365,31 @@ packages:
     peerDependencies:
       vite: ^5.2.0 || ^6 || ^7
 
+  '@tanstack/devtools-event-client@0.3.3':
+    resolution: {integrity: sha512-RfV+OPV/M3CGryYqTue684u10jUt55PEqeBOnOtCe6tAmHI9Iqyc8nHeDhWPEV9715gShuauFVaMc9RiUVNdwg==}
+    engines: {node: '>=18'}
+
   '@tanstack/directive-functions-plugin@1.132.42':
     resolution: {integrity: sha512-GIPaal17gt/huxIJ3k5nsNkKHR/vv+PMtNtwsZYNT0aw27bXwPsLoNiFE+L+qjmm8hg4o0uPRzL2yKs57W8Oow==}
     engines: {node: '>=12'}
     peerDependencies:
       vite: '>=6.0.0 || >=7.0.0'
 
+  '@tanstack/form-core@1.24.2':
+    resolution: {integrity: sha512-qc2YFhM0PsxjLbZ7Fn5ErX9kz/Wr6gmd4m47Nf3OFfsFbI1O2B5AQLwt9OApMs19CDeNiqe/zTSK+ayeHaDJNQ==}
+
   '@tanstack/history@1.132.31':
     resolution: {integrity: sha512-UCHM2uS0t/uSszqPEo+SBSSoQVeQ+LlOWAVBl5SA7+AedeAbKafIPjFn8huZCXNLAYb0WKV2+wETr7lDK9uz7g==}
     engines: {node: '>=12'}
+
+  '@tanstack/react-form@1.23.6':
+    resolution: {integrity: sha512-cz8Nskpe2zo24lJd0ky0hO7NOqV/U7drQ2XiK3bxt94v5hnMQtUOno6mtJ6Tvwy0p8xKwSN76SvnpU+tp8YMQA==}
+    peerDependencies:
+      '@tanstack/react-start': ^1.130.10
+      react: ^17.0.0 || ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      '@tanstack/react-start':
+        optional: true
 
   '@tanstack/react-router@1.132.47':
     resolution: {integrity: sha512-mjCN1ueVLHBOK1gqLeacCrUPBZietMKTkr7xZlC32dCGn4e+83zMSlRTS2TrEl7+wEH+bqjnoyx8ALYTSiQ1Cg==}
@@ -2380,6 +2399,9 @@ packages:
   decache@4.6.2:
     resolution: {integrity: sha512-2LPqkLeu8XWHU8qNCS3kcF6sCcb5zIzvWaAHYSvPfwhdd7mHuah29NssMzrTYyHN4F5oFy2ko9OBYxegtU0FEw==}
 
+  decode-formdata@0.9.0:
+    resolution: {integrity: sha512-q5uwOjR3Um5YD+ZWPOF/1sGHVW9A5rCrRwITQChRXlmPkxDFBqCm4jNTIVdGHNH9OnR+V9MoZVgRhsFb+ARbUw==}
+
   decode-uri-component@0.2.2:
     resolution: {integrity: sha512-FqUYQ+8o158GyGTrMFJms9qh3CqTKvAqgqsTnkLI8sKu0028orqBhxNMFkFen0zGyg6epACD32pjVk58ngIErQ==}
     engines: {node: '>=0.10'}
@@ -2518,6 +2540,9 @@ packages:
 
   dettle@1.0.5:
     resolution: {integrity: sha512-ZVyjhAJ7sCe1PNXEGveObOH9AC8QvMga3HJIghHawtG7mE4K5pW9nz/vDGAr/U7a3LWgdOzEE7ac9MURnyfaTA==}
+
+  devalue@5.3.2:
+    resolution: {integrity: sha512-UDsjUbpQn9kvm68slnrs+mfxwFkIflOhkanmyabZ8zOYk8SMEIbJ3TK+88g70hSIeytu4y18f0z/hYHMTrXIWw==}
 
   diff@8.0.2:
     resolution: {integrity: sha512-sSuxWU5j5SR9QQji/o2qMvqRNYRDOcBTgsJ/DeCf4iSN4gW+gNMXM7wFIP+fdXZxoNiAnHUTGjCr+TSWXdRDKg==}
@@ -6827,6 +6852,8 @@ snapshots:
       tailwindcss: 4.1.14
       vite: 7.1.9(@types/node@24.7.0)(jiti@2.6.1)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)
 
+  '@tanstack/devtools-event-client@0.3.3': {}
+
   '@tanstack/directive-functions-plugin@1.132.42(vite@7.1.9(@types/node@24.7.0)(jiti@2.6.1)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))':
     dependencies:
       '@babel/code-frame': 7.27.1
@@ -6841,7 +6868,24 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@tanstack/form-core@1.24.2':
+    dependencies:
+      '@tanstack/devtools-event-client': 0.3.3
+      '@tanstack/store': 0.7.7
+
   '@tanstack/history@1.132.31': {}
+
+  '@tanstack/react-form@1.23.6(@tanstack/react-start@1.132.48(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vite@7.1.9(@types/node@24.7.0)(jiti@2.6.1)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+    dependencies:
+      '@tanstack/form-core': 1.24.2
+      '@tanstack/react-store': 0.7.7(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      decode-formdata: 0.9.0
+      devalue: 5.3.2
+      react: 19.2.0
+    optionalDependencies:
+      '@tanstack/react-start': 1.132.48(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vite@7.1.9(@types/node@24.7.0)(jiti@2.6.1)(lightningcss@1.30.1)(tsx@4.20.6)(yaml@2.8.1))
+    transitivePeerDependencies:
+      - react-dom
 
   '@tanstack/react-router@1.132.47(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
@@ -8334,6 +8378,8 @@ snapshots:
     dependencies:
       callsite: 1.0.0
 
+  decode-formdata@0.9.0: {}
+
   decode-uri-component@0.2.2: {}
 
   decompress-response@3.3.0:
@@ -8487,6 +8533,8 @@ snapshots:
       - supports-color
 
   dettle@1.0.5: {}
+
+  devalue@5.3.2: {}
 
   diff@8.0.2: {}
 
