@@ -1,14 +1,16 @@
+// src/routes/__root.tsx
+/// <reference types="vite/client" />
+
 import {
     HeadContent,
     Outlet,
     Scripts,
     createRootRoute,
 } from '@tanstack/react-router'
-// src/routes/__root.tsx
-/// <reference types="vite/client" />
 import type { ReactNode } from 'react'
 
 import appCss from '../styles.css?url'
+import { ThemeProvider } from '@/components/theme/provider'
 
 export const Route = createRootRoute({
     head: () => ({
@@ -37,7 +39,9 @@ export const Route = createRootRoute({
 function RootComponent() {
     return (
         <RootDocument>
-            <Outlet />
+            <ThemeProvider defaultTheme='dark' storageKey='bca-theme'>
+                <Outlet />
+            </ThemeProvider>
         </RootDocument>
     )
 }
