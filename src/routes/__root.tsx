@@ -41,9 +41,6 @@ function RootComponent() {
     return (
         <RootDocument>
             <ThemeProvider defaultTheme='dark' storageKey='bca-theme'>
-                <nav className='flex items-right justify-end p-4'>
-                    <ModeToggle />
-                </nav>
                 <Outlet />
             </ThemeProvider>
         </RootDocument>

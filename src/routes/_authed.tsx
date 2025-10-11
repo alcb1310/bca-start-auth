@@ -1,3 +1,4 @@
+import { ModeToggle } from '@/components/theme/mode-toggle'
 import { getUser } from '@/lib/auth-server'
 import { Outlet, createFileRoute, redirect } from '@tanstack/react-router'
 
@@ -15,5 +16,9 @@ export const Route = createFileRoute('/_authed')({
 })
 
 function RouteComponent() {
-    return <Outlet />
+    return (
+                <main className='px-4'>
+                    <Outlet />
+                </main>
+    )
 }
