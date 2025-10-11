@@ -1,4 +1,13 @@
 import { Button } from '@/components/ui/button'
+import {
+    Card,
+    CardAction,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card'
 import { H1 } from '@/components/ui/typography'
 import { useAppForm } from '@/hooks/app.form'
 import { signIn } from '@/lib/auth-client'
@@ -36,39 +45,51 @@ function RouteComponent() {
     })
 
     return (
-        <div>
-            <H1>Login</H1>
-            <form
-                onSubmit={(e) => {
-                    e.preventDefault()
-                    e.stopPropagation()
-                    form.handleSubmit()
-                }}
-            >
-                <form.AppField name='email'>
-                    {(field) => (
-                        <field.TextField label='Email' placeholder='Email' />
-                    )}
-                </form.AppField>
-                <form.AppField name='password'>
-                    {(field) => (
-                        <field.PasswordField
-                            label='Contraseña'
-                            placeholder='su contraseña'
-                        />
-                    )}
-                </form.AppField>
-
-                <form.AppForm>
-                    <form.SuscribeButton
-                        label='Login'
-                        className='uppercase tracking-wide font-bold'
-                    />
-                </form.AppForm>
-            </form>
-            <Button variant='link' size='sm'>
-                <Link to='/register'>Register</Link>
-            </Button>
-        </div>
+        <form
+            onSubmit={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                form.handleSubmit()
+            }}
+        >
+            <Card className='w-full max-w-xl mx-auto'>
+                <CardHeader>
+                    <CardTitle>Login</CardTitle>
+                    <CardDescription>
+                        Ingrese sus credenciales para ingresar al sistema
+                    </CardDescription>
+                    <CardAction>
+                        <Button variant='link'>
+                            <Link to='/register' className='text-xs'>
+                                Registrarse
+                            </Link>
+                        </Button>
+                    </CardAction>
+                </CardHeader>
+                <CardContent className='space-y-4'>
+                    <form.AppField name='email'>
+                        {(field) => (
+                            <field.TextField
+                                label='Email'
+                                placeholder='Email'
+                            />
+                        )}
+                    </form.AppField>
+                    <form.AppField name='password'>
+                        {(field) => (
+                            <field.PasswordField
+                                label='Contraseña'
+                                placeholder='Contraseña'
+                            />
+                        )}
+                    </form.AppField>
+                </CardContent>
+                <CardFooter>
+                    <form.AppForm>
+                        <form.SuscribeButton label='Login' className='w-full' />
+                    </form.AppForm>
+                </CardFooter>
+            </Card>
+        </form>
     )
 }
