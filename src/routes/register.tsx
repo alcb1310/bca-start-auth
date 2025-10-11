@@ -81,20 +81,31 @@ function RouteComponent() {
                     </form.AppField>
                     <form.AppField name='password'>
                         {(field) => (
-                            <field.PasswordField
+                            <field.TextField
+                                type='password'
                                 label='Contraseña'
                                 placeholder='Contraseña'
+                                description='Mínimo 8 caracteres'
                             />
                         )}
                     </form.AppField>
                 </CardContent>
-                <CardFooter>
+                <CardFooter className='flex flex-col gap-4'>
                     <form.AppForm>
                         <form.SuscribeButton
                             label='Crear Cuenta'
                             className='w-full'
                         />
                     </form.AppForm>
+
+                    <Button
+                        type='button'
+                        variant={'secondary'}
+                        onClick={() => navigate({ to: '/' })}
+                        className='w-full'
+                    >
+                        Regresar
+                    </Button>
                 </CardFooter>
             </Card>
         </form>

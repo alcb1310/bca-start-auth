@@ -77,9 +77,10 @@ function RouteComponent() {
                     </form.AppField>
                     <form.AppField name='password'>
                         {(field) => (
-                            <field.PasswordField
+                            <field.TextField
                                 label='Contraseña'
                                 placeholder='Contraseña'
+                                type='password'
                             />
                         )}
                     </form.AppField>

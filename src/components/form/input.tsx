@@ -1,27 +1,34 @@
+import {
+    Field,
+    FieldDescription,
+    FieldError,
+    FieldLabel,
+} from '@/components//ui/field'
+import { Input } from '@/components/ui/input'
 import { useFieldContext } from '@/hooks/app.form'
 import { useStore } from '@tanstack/react-form'
-import { Label } from '../ui/label'
-import { Input } from '../ui/input'
+import type { ComponentProps } from 'react'
 
-type TextFieldProps = {
+interface TextFieldProps extends ComponentProps<'input'> {
     label: string
     placeholder?: string
+    description?: string
     testId?: string
 }
 
-export function TextField({ label, placeholder, testId }: TextFieldProps) {
+export function TextField({
+    label,
+    placeholder,
+    testId,
+    description,
+    ...props
+}: TextFieldProps) {
     const field = useFieldContext<string>()
     const errors = useStore(field.store, (state) => state.meta.errors)
 
     return (
-        <div>
-            <Label
-                htmlFor={label}
-                className='mb-1 font-bold'
-                data-testid={`${testId}-label`}
-            >
-                {label}
-            </Label>
+        <Field>
+            <FieldLabel htmlFor={label}>{label}</FieldLabel>
             <Input
                 placeholder={placeholder}
                 value={field.state.value}
@@ -29,8 +36,10 @@ export function TextField({ label, placeholder, testId }: TextFieldProps) {
                 onBlur={field.handleBlur}
                 data-testid={`${testId}-input`}
                 className={errors.length > 0 ? 'border-destructive' : ''}
+                {...props}
             />
-            {/*field.state.meta.isTouched && <ErrorMessages errors={errors} />*/}
-        </div>
+            {description && <FieldDescription>{description}</FieldDescription>}
+            {field.state.meta.isTouched && <FieldError>{errors}</FieldError>}
+        </Field>
     )
 }
