@@ -2,6 +2,7 @@ import * as schema from '@/db/auth-schema'
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { drizzle } from 'drizzle-orm/node-postgres'
+import { admin } from 'better-auth/plugins'
 
 const db = drizzle(process.env.DATABASE_URL as string)
 
@@ -14,4 +15,9 @@ export const auth = betterAuth({
         enabled: true,
         autoSignIn: false,
     },
+    plugins: [
+        admin({
+            defaultRole: 'admin',
+        }),
+    ],
 })

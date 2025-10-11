@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/sidebar'
 import { H4 } from '@/components/ui/typography'
 import { UserActions } from '@/components/users/user-actions'
-import { signOut } from '@/lib/auth-client'
+import { authClient } from '@/lib/auth-client'
 import { getUser } from '@/lib/auth-server'
 import {
     Outlet,
@@ -35,7 +35,7 @@ function RouteComponent() {
     const navigate = useNavigate()
 
     function handleLogout() {
-        signOut(
+        authClient.signOut(
             {},
             {
                 onSuccess: () => {
@@ -44,6 +44,7 @@ function RouteComponent() {
             },
         )
     }
+
     return (
         <SidebarProvider>
             <AppSidebar variant='inset' collapsible='icon' />

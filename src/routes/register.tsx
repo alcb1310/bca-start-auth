@@ -7,13 +7,9 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { H2 } from '@/components/ui/typography'
 import { useAppForm } from '@/hooks/app.form'
-import { signUp } from '@/lib/auth-client'
+import { authClient } from '@/lib/auth-client'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { type ChangeEvent, type FormEvent, useState } from 'react'
 
 export const Route = createFileRoute('/register')({
     component: RouteComponent,
@@ -28,7 +24,7 @@ function RouteComponent() {
             name: '',
         },
         onSubmit: async ({ value }) => {
-            await signUp.email(
+            await authClient.signUp.email(
                 {
                     email: value.email,
                     password: value.password,

@@ -8,9 +8,8 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card'
-import { H1 } from '@/components/ui/typography'
 import { useAppForm } from '@/hooks/app.form'
-import { signIn } from '@/lib/auth-client'
+import { authClient } from '@/lib/auth-client'
 import { Link, createFileRoute, useNavigate } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/login')({
@@ -26,7 +25,7 @@ function RouteComponent() {
             password: '',
         },
         onSubmit: async ({ value }) => {
-            await signIn.email(
+            await authClient.signIn.email(
                 {
                     email: value.email,
                     password: value.password,
