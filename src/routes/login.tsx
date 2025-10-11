@@ -1,7 +1,5 @@
-import { Button } from '@/components/ui/button'
 import {
     Card,
-    CardAction,
     CardContent,
     CardDescription,
     CardFooter,
@@ -10,7 +8,7 @@ import {
 } from '@/components/ui/card'
 import { useAppForm } from '@/hooks/app.form'
 import { authClient } from '@/lib/auth-client'
-import { Link, createFileRoute, useNavigate } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/login')({
     component: RouteComponent,
@@ -57,13 +55,6 @@ function RouteComponent() {
                     <CardDescription>
                         Ingrese sus credenciales para ingresar al sistema
                     </CardDescription>
-                    <CardAction>
-                        <Button variant='link'>
-                            <Link to='/register' className='text-xs'>
-                                Registrarse
-                            </Link>
-                        </Button>
-                    </CardAction>
                 </CardHeader>
                 <CardContent className='space-y-4'>
                     <form.AppField name='email'>

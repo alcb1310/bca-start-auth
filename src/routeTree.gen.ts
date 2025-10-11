@@ -9,18 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as RegisterRouteImport } from './routes/register'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthedRouteImport } from './routes/_authed'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthedDashboardRouteImport } from './routes/_authed/dashboard'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as AuthedUsersRegisterRouteImport } from './routes/_authed/users/register'
+import { Route as AuthedUsersAdminRouteImport } from './routes/_authed/users/admin'
 
-const RegisterRoute = RegisterRouteImport.update({
-  id: '/register',
-  path: '/register',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -45,19 +41,31 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthedUsersRegisterRoute = AuthedUsersRegisterRouteImport.update({
+  id: '/users/register',
+  path: '/users/register',
+  getParentRoute: () => AuthedRoute,
+} as any)
+const AuthedUsersAdminRoute = AuthedUsersAdminRouteImport.update({
+  id: '/users/admin',
+  path: '/users/admin',
+  getParentRoute: () => AuthedRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
-  '/register': typeof RegisterRoute
   '/dashboard': typeof AuthedDashboardRoute
+  '/users/admin': typeof AuthedUsersAdminRoute
+  '/users/register': typeof AuthedUsersRegisterRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
-  '/register': typeof RegisterRoute
   '/dashboard': typeof AuthedDashboardRoute
+  '/users/admin': typeof AuthedUsersAdminRoute
+  '/users/register': typeof AuthedUsersRegisterRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
@@ -65,22 +73,36 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authed': typeof AuthedRouteWithChildren
   '/login': typeof LoginRoute
-  '/register': typeof RegisterRoute
   '/_authed/dashboard': typeof AuthedDashboardRoute
+  '/_authed/users/admin': typeof AuthedUsersAdminRoute
+  '/_authed/users/register': typeof AuthedUsersRegisterRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/register' | '/dashboard' | '/api/auth/$'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/dashboard'
+    | '/users/admin'
+    | '/users/register'
+    | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/register' | '/dashboard' | '/api/auth/$'
+  to:
+    | '/'
+    | '/login'
+    | '/dashboard'
+    | '/users/admin'
+    | '/users/register'
+    | '/api/auth/$'
   id:
     | '__root__'
     | '/'
     | '/_authed'
     | '/login'
-    | '/register'
     | '/_authed/dashboard'
+    | '/_authed/users/admin'
+    | '/_authed/users/register'
     | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
@@ -88,19 +110,11 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthedRoute: typeof AuthedRouteWithChildren
   LoginRoute: typeof LoginRoute
-  RegisterRoute: typeof RegisterRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/register': {
-      id: '/register'
-      path: '/register'
-      fullPath: '/register'
-      preLoaderRoute: typeof RegisterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -136,15 +150,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authed/users/register': {
+      id: '/_authed/users/register'
+      path: '/users/register'
+      fullPath: '/users/register'
+      preLoaderRoute: typeof AuthedUsersRegisterRouteImport
+      parentRoute: typeof AuthedRoute
+    }
+    '/_authed/users/admin': {
+      id: '/_authed/users/admin'
+      path: '/users/admin'
+      fullPath: '/users/admin'
+      preLoaderRoute: typeof AuthedUsersAdminRouteImport
+      parentRoute: typeof AuthedRoute
+    }
   }
 }
 
 interface AuthedRouteChildren {
   AuthedDashboardRoute: typeof AuthedDashboardRoute
+  AuthedUsersAdminRoute: typeof AuthedUsersAdminRoute
+  AuthedUsersRegisterRoute: typeof AuthedUsersRegisterRoute
 }
 
 const AuthedRouteChildren: AuthedRouteChildren = {
   AuthedDashboardRoute: AuthedDashboardRoute,
+  AuthedUsersAdminRoute: AuthedUsersAdminRoute,
+  AuthedUsersRegisterRoute: AuthedUsersRegisterRoute,
 }
 
 const AuthedRouteWithChildren =
@@ -154,7 +186,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthedRoute: AuthedRouteWithChildren,
   LoginRoute: LoginRoute,
-  RegisterRoute: RegisterRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport
