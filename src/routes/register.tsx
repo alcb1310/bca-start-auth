@@ -1,4 +1,12 @@
 import { Button } from '@/components/ui/button'
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { H2 } from '@/components/ui/typography'
@@ -28,11 +36,9 @@ function RouteComponent() {
                 },
                 {
                     onSuccess: () => {
-                        setEnabled(false)
                         navigate({ to: '/' })
                     },
                     onError: (error) => {
-                        setEnabled(false)
                         console.error(error)
                         alert(error.error.message)
                     },
@@ -41,45 +47,56 @@ function RouteComponent() {
         },
     })
 
-    const [enabled, setEnabled] = useState<boolean>(false)
-
     return (
-        <div>
-            <H2>Register</H2>
-
-            <form
-                onSubmit={(e) => {
-                    e.preventDefault()
-                    e.stopPropagation()
-                    form.handleSubmit()
-                }}
-            >
-                <form.AppField name='name'>
-                    {(field) => (
-                        <field.TextField label='Nombre' placeholder='Nombre' />
-                    )}
-                </form.AppField>
-                <form.AppField name='email'>
-                    {(field) => (
-                        <field.TextField label='Email' placeholder='Email' />
-                    )}
-                </form.AppField>
-                <form.AppField name='password'>
-                    {(field) => (
-                        <field.PasswordField
-                            label='Contraseña'
-                            placeholder='su contraseña'
+        <form
+            onSubmit={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                form.handleSubmit()
+            }}
+        >
+            <Card className='w-3/4 mx-auto'>
+                <CardHeader>
+                    <CardTitle>Registrarse</CardTitle>
+                    <CardDescription>
+                        Ingrese la informacion para crear una cuenta
+                    </CardDescription>
+                </CardHeader>
+                <CardContent className='space-y-4'>
+                    <form.AppField name='name'>
+                        {(field) => (
+                            <field.TextField
+                                label='Nombre'
+                                placeholder='Nombre'
+                            />
+                        )}
+                    </form.AppField>
+                    <form.AppField name='email'>
+                        {(field) => (
+                            <field.TextField
+                                label='Email'
+                                placeholder='Email'
+                            />
+                        )}
+                    </form.AppField>
+                    <form.AppField name='password'>
+                        {(field) => (
+                            <field.PasswordField
+                                label='Contraseña'
+                                placeholder='Contraseña'
+                            />
+                        )}
+                    </form.AppField>
+                </CardContent>
+                <CardFooter>
+                    <form.AppForm>
+                        <form.SuscribeButton
+                            label='Crear Cuenta'
+                            className='w-full'
                         />
-                    )}
-                </form.AppField>
-
-                <form.AppForm>
-                    <form.SuscribeButton
-                        label='Login'
-                        className='uppercase tracking-wide font-bold'
-                    />
-                </form.AppForm>
-            </form>
-        </div>
+                    </form.AppForm>
+                </CardFooter>
+            </Card>
+        </form>
     )
 }
