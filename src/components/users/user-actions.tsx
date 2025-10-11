@@ -1,3 +1,4 @@
+import { Link, useNavigate } from '@tanstack/react-router'
 import { UserIcon } from 'lucide-react'
 import { Button } from '../ui/button'
 import {
@@ -8,6 +9,8 @@ import {
 } from '../ui/dropdown-menu'
 
 export function UserActions() {
+    const navigate = useNavigate()
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -18,7 +21,11 @@ export function UserActions() {
             <DropdownMenuContent align='end'>
                 <DropdownMenuItem>Perfil</DropdownMenuItem>
                 <DropdownMenuItem>Cambiar Contraseña</DropdownMenuItem>
-                <DropdownMenuItem>Administrar</DropdownMenuItem>
+                <DropdownMenuItem
+                    onClick={() => navigate({ to: '/users/admin' })}
+                >
+                    Administrar
+                </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     )
