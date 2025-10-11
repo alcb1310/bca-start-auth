@@ -1,19 +1,21 @@
 // src/routes/__root.tsx
 /// <reference types="vite/client" />
 
+import { ThemeProvider } from '@/components/theme/provider'
+import type { QueryClient } from '@tanstack/react-query'
 import {
     HeadContent,
     Outlet,
     Scripts,
-    createRootRoute,
+    createRootRouteWithContext,
 } from '@tanstack/react-router'
 import type { ReactNode } from 'react'
 
 import appCss from '../styles.css?url'
-import { ThemeProvider } from '@/components/theme/provider'
-import { ModeToggle } from '@/components/theme/mode-toggle'
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<{
+    queryClient: QueryClient
+}>()({
     head: () => ({
         meta: [
             {
