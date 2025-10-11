@@ -6,6 +6,7 @@ import {
     SidebarProvider,
     SidebarTrigger,
 } from '@/components/ui/sidebar'
+import { H4 } from '@/components/ui/typography'
 import { signOut } from '@/lib/auth-client'
 import { getUser } from '@/lib/auth-server'
 import {
@@ -48,6 +49,7 @@ function RouteComponent() {
             <SidebarInset>
                 <nav className='flex items-center justify-between p-4'>
                     <SidebarTrigger />
+                    <H4>Sistema Control Presupuestario</H4>
                     <div>
                         <ModeToggle />
                         <Button
