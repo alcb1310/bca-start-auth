@@ -3,12 +3,14 @@ import {
     SidebarContent,
     SidebarGroup,
     SidebarGroupContent,
-    SidebarGroupLabel,
+    SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
+    SidebarMenuSub,
+    SidebarMenuSubItem,
+    SidebarSeparator,
 } from '@/components/ui/sidebar'
-import { Link } from '@tanstack/react-router'
 import {
     BanknoteArrowDownIcon,
     BrickWallIcon,
@@ -16,6 +18,7 @@ import {
     ChartBarStackedIcon,
     ChartCandlestickIcon,
     ChartSplineIcon,
+    ChevronDown,
     ClipboardClockIcon,
     CreditCardIcon,
     FolderKanbanIcon,
@@ -28,6 +31,11 @@ import {
     ShoppingCartIcon,
 } from 'lucide-react'
 import type { ForwardRefExoticComponent, RefAttributes } from 'react'
+import {
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger,
+} from '../ui/collapsible'
 
 type MenuItem = {
     title: string
@@ -96,22 +104,44 @@ export function AppSidebar({
 }) {
     return (
         <Sidebar variant={variant} collapsible={collapsible}>
+            <SidebarHeader>BCA</SidebarHeader>
+            <SidebarSeparator />
             <SidebarContent>
                 {menuObjects.map((group) => (
                     <SidebarGroup key={group.title}>
-                        <SidebarGroupLabel>{group.title}</SidebarGroupLabel>
                         <SidebarGroupContent>
                             <SidebarMenu>
-                                {group.items.map((item) => (
-                                    <SidebarMenuItem key={item.title}>
-                                        <SidebarMenuButton asChild>
-                                            <Link to={item.url}>
-                                                {item.icon && <item.icon />}
-                                                <span>{item.title}</span>
-                                            </Link>
-                                        </SidebarMenuButton>
+                                <Collapsible
+                                    defaultOpen
+                                    className='group/collapsible'
+                                >
+                                    <SidebarMenuItem>
+                                        <CollapsibleTrigger asChild>
+                                            <SidebarMenuButton>
+                                                {group.title}
+                                                <ChevronDown className='ml-auto' />
+                                            </SidebarMenuButton>
+                                        </CollapsibleTrigger>
+                                        <CollapsibleContent>
+                                            {group.items.map((item) => (
+                                                <SidebarMenuSub
+                                                    key={item.title}
+                                                >
+                                                    <SidebarMenuSubItem className='flex gap-4 my-1'>
+                                                        {item.icon && (
+                                                            <item.icon
+                                                                size={16}
+                                                            />
+                                                        )}
+                                                        <span>
+                                                            {item.title}
+                                                        </span>
+                                                    </SidebarMenuSubItem>
+                                                </SidebarMenuSub>
+                                            ))}
+                                        </CollapsibleContent>
                                     </SidebarMenuItem>
-                                ))}
+                                </Collapsible>
                             </SidebarMenu>
                         </SidebarGroupContent>
                     </SidebarGroup>
