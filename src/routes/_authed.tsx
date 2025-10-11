@@ -7,6 +7,7 @@ import {
     SidebarTrigger,
 } from '@/components/ui/sidebar'
 import { H4 } from '@/components/ui/typography'
+import { UserActions } from '@/components/users/user-actions'
 import { signOut } from '@/lib/auth-client'
 import { getUser } from '@/lib/auth-server'
 import {
@@ -51,6 +52,7 @@ function RouteComponent() {
                     <SidebarTrigger />
                     <H4>Sistema Control Presupuestario</H4>
                     <div>
+                        <UserActions />
                         <ModeToggle />
                         <Button
                             type='button'
