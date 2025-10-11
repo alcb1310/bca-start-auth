@@ -11,7 +11,7 @@ import { useAppForm } from '@/hooks/app.form'
 import { authClient } from '@/lib/auth-client'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/register')({
+export const Route = createFileRoute('/_authed/users/register')({
     component: RouteComponent,
 })
 
@@ -32,7 +32,7 @@ function RouteComponent() {
                 },
                 {
                     onSuccess: () => {
-                        navigate({ to: '/' })
+                        navigate({ to: '/users/admin' })
                     },
                     onError: (error) => {
                         console.error(error)
@@ -97,7 +97,7 @@ function RouteComponent() {
                     <Button
                         type='button'
                         variant={'secondary'}
-                        onClick={() => navigate({ to: '/' })}
+                        onClick={() => navigate({ to: '/users/admin' })}
                         className='w-full'
                     >
                         Regresar
