@@ -8,8 +8,10 @@ import {
 } from '@/components/ui/sidebar'
 import { H4 } from '@/components/ui/typography'
 import { UserActions } from '@/components/users/user-actions'
+import { auth } from '@/lib/auth'
 import { authClient } from '@/lib/auth-client'
 import { getUser } from '@/lib/auth-server'
+import { headers } from '@/lib/headers'
 import {
     Outlet,
     createFileRoute,
@@ -23,11 +25,16 @@ export const Route = createFileRoute('/_authed')({
     beforeLoad: async () => {
         const user = await getUser()
 
+        const h = await headers()
+        const { token } = await auth.api.getToken({
+            headers: h,
+        })
+
         if (!user || !user.id) {
             throw redirect({ to: '/login' })
         }
 
-        return { user }
+        return { user, token }
     },
 })
 

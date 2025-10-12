@@ -3,6 +3,9 @@ import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_authed/dashboard')({
     component: RouteComponent,
+    beforeLoad: async ({ context }) => {
+        console.info('Token: ', context.token)
+    },
 })
 
 function RouteComponent() {
