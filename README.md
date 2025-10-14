@@ -19,6 +19,7 @@ Add the following to your `.env` file:
 DATABASE_URL=postgresql://${USER}:${PASSWORD}@${HOST}:${PORT}/${DATABASE}?schema=public
 BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
 BETTER_AUTH_URL=${BETTER_AUTH_URL} # not sure yet if this is needed
+BACKEND_SERVER_URL=${BACKEND_SERVER_URL}
 ```
 
 ```bash
