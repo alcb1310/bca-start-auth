@@ -5,10 +5,12 @@ import { createFileRoute } from '@tanstack/react-router'
 export const Route = createFileRoute('/_authed/dashboard')({
     component: RouteComponent,
     loader: async ({ context }) => {
+        console.info('dashboard')
         const health = await context.queryClient.ensureQueryData({
             queryKey: ['health'],
             queryFn: () => getHealth({ data: { token: context.token } }),
         })
+        console.info('dashboard', health)
         return { health }
     },
 })
