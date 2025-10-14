@@ -23,11 +23,11 @@ export const Route = createFileRoute('/_authed')({
     component: RouteComponent,
     beforeLoad: async () => {
         const user = await getUser()
-        const token = await headers()
 
         if (!user || !user.id) {
             throw redirect({ to: '/login' })
         }
+        const token = await headers()
 
         return { user, token }
     },
