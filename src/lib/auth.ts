@@ -22,4 +22,8 @@ export const auth = betterAuth({
         jwt(),
     ],
     baseURL: process.env.BETTER_AUTH_URL || 'http://localhost:3000',
+    trustedOrigins: [
+        'http://localhost:3000',
+        'https://bca-start-auth-production.up.railway.app',
+    ],
 })
