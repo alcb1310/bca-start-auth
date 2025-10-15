@@ -1,6 +1,6 @@
 import { DataTable } from '@/components/ui/DataTable'
 import { Button } from '@/components/ui/button'
-import { H4 } from '@/components/ui/typography'
+import { H4, Parragraph } from '@/components/ui/typography'
 import { authClient } from '@/lib/auth-client'
 import { listUsers } from '@/queries/users'
 import { useSuspenseQuery } from '@tanstack/react-query'
@@ -11,20 +11,33 @@ import { PlusIcon, TrashIcon } from 'lucide-react'
 
 export const Route = createFileRoute('/_authed/users/admin')({
     component: RouteComponent,
+    errorComponent: ({ error }) => (
+        <p>
+            {error.name} / {error.message} / {error.stack}
+        </p>
+    ),
     loader: async ({ context }) => {
         await context.queryClient.ensureQueryData({
             queryKey: ['users'],
-            queryFn: listUsers,
+            queryFn: () => listUsers({ token: context.token }),
         })
     },
 })
 
 function RouteComponent() {
-    const { user, queryClient } = Route.useRouteContext()
-    const { data: users } = useSuspenseQuery({
+    const { user, token, queryClient } = Route.useRouteContext()
+    const {
+        data: users,
+        isError,
+        error,
+    } = useSuspenseQuery({
         queryKey: ['users'],
-        queryFn: listUsers,
+        queryFn: () => listUsers({ token: token }),
     })
+
+    if (isError) {
+        return <Parragraph>Error: {error.message}</Parragraph>
+    }
 
     const columns: ColumnDef<UserWithRole>[] = [
         {
