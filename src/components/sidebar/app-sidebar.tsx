@@ -11,6 +11,7 @@ import {
     SidebarMenuSubItem,
     SidebarSeparator,
 } from '@/components/ui/sidebar'
+import { Link } from '@tanstack/react-router'
 import {
     BanknoteArrowDownIcon,
     BrickWallIcon,
@@ -81,7 +82,11 @@ const menuObjects: MenuGroup[] = [
             { title: 'Partidas', url: '#', icon: LayoutListIcon },
             { title: 'Categorias', url: '#', icon: ChartBarStackedIcon },
             { title: 'Materiales', url: '#', icon: BrickWallIcon },
-            { title: 'Proyectos', url: '#', icon: FolderKanbanIcon },
+            {
+                title: 'Proyectos',
+                url: '/parametros/proyectos',
+                icon: FolderKanbanIcon,
+            },
             { title: 'Proveedores', url: '#', icon: CableIcon },
             { title: 'Rubros', url: '#', icon: ShoppingBasketIcon },
         ],
@@ -127,16 +132,18 @@ export function AppSidebar({
                                                 <SidebarMenuSub
                                                     key={item.title}
                                                 >
-                                                    <SidebarMenuSubItem className='flex gap-4 my-1'>
-                                                        {item.icon && (
-                                                            <item.icon
-                                                                size={16}
-                                                            />
-                                                        )}
-                                                        <span>
-                                                            {item.title}
-                                                        </span>
-                                                    </SidebarMenuSubItem>
+                                                    <Link to={item.url}>
+                                                        <SidebarMenuSubItem className='flex gap-4 my-1'>
+                                                            {item.icon && (
+                                                                <item.icon
+                                                                    size={16}
+                                                                />
+                                                            )}
+                                                            <span>
+                                                                {item.title}
+                                                            </span>
+                                                        </SidebarMenuSubItem>
+                                                    </Link>
                                                 </SidebarMenuSub>
                                             ))}
                                         </CollapsibleContent>
