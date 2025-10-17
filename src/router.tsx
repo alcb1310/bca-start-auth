@@ -11,6 +11,10 @@ export function getRouter() {
         scrollRestoration: true,
         defaultPreload: 'intent',
         context: { queryClient },
+        defaultNotFoundComponent: () => <div>Not found</div>,
+        defaultErrorComponent: ({ error }) => (
+            <div className='text-destructive'>Error {error.message}</div>
+        ),
     })
 
     setupRouterSsrQueryIntegration({
