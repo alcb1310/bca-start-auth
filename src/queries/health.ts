@@ -17,8 +17,8 @@ export const getHealth = createServerFn({ method: 'GET' })
             },
         )
         if (!response.ok) {
-            console.error('Network response was not ok')
-            throw new Error('Network response was not ok')
+            console.error('Network response was not ok', response)
+            throw new Error(`Network response was not ok ${response}`)
         }
         const resData = (await response.json()) as responseType
         return resData
