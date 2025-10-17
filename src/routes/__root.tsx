@@ -3,6 +3,7 @@
 
 import { ThemeProvider } from '@/components/theme/provider'
 import type { QueryClient } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import {
     HeadContent,
     Outlet,
@@ -44,6 +45,7 @@ function RootComponent() {
         <RootDocument>
             <ThemeProvider defaultTheme='dark' storageKey='bca-theme'>
                 <Outlet />
+                <ReactQueryDevtools initialIsOpen={false} />
             </ThemeProvider>
         </RootDocument>
     )
