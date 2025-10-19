@@ -37,10 +37,11 @@ import {
     CollapsibleContent,
     CollapsibleTrigger,
 } from '../ui/collapsible'
+import type { FileRoutesByTo } from '@/routeTree.gen'
 
 type MenuItem = {
     title: string
-    url: string
+    url: keyof FileRoutesByTo | '#'
     icon?: ForwardRefExoticComponent<
         Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>
     >
