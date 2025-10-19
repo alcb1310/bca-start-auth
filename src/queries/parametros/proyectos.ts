@@ -27,8 +27,6 @@ export const getAllProyectos = createServerFn({ method: 'GET' })
             console.error('Network response was not ok', resData)
             throw new Error(`Network response was not ok ${resData.Message}`)
         }
-        console.log('responde', response)
         const resData = (await response.json()) as proyectsResponseType[]
-        console.log('resData', resData)
         return resData
     })
