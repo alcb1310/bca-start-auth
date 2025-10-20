@@ -1,3 +1,4 @@
+import { NewProyectSheet } from '@/components/drawers/parametros/new-project'
 import { DataTable } from '@/components/ui/DataTable'
 import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
@@ -7,7 +8,7 @@ import {
     type proyectsResponseType,
 } from '@/queries/parametros/proyectos'
 import { useSuspenseQuery } from '@tanstack/react-query'
-import { Link, createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 import type { ColumnDef } from '@tanstack/react-table'
 import { PencilIcon, PlusIcon, TrashIcon } from 'lucide-react'
 
@@ -30,8 +31,6 @@ function RouteComponent() {
         queryKey: ['proyectos'],
         queryFn: () => getAllProyectos({ data: { token } }),
     })
-
-    console.log('proyectos', proyectos)
 
     const column: ColumnDef<proyectsResponseType>[] = [
         { header: 'Nombre', accessorKey: 'name' },
@@ -92,12 +91,7 @@ function RouteComponent() {
     return (
         <div>
             <H4>Proyectos</H4>
-            <Button variant={'link'}>
-                <Link to='/dashboard' className='flex items-center gap-2'>
-                    <PlusIcon />
-                    Crear Proyecto
-                </Link>
-            </Button>
+            <NewProyectSheet />
 
             <DataTable data={proyectos} columns={column} />
         </div>
