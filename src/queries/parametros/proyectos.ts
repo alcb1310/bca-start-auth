@@ -1,5 +1,7 @@
 import { createServerFn } from '@tanstack/react-start'
 
+const server = import.meta.env.VITE_BACKEND_SERVER_URL
+
 export type proyectsResponseType = {
     id: string
     name: string
@@ -12,15 +14,13 @@ export type proyectsResponseType = {
 export const getAllProyectos = createServerFn({ method: 'GET' })
     .inputValidator((data: { token: string }) => data)
     .handler(async ({ data }) => {
-        const response = await fetch(
-            `${process.env.BACKEND_SERVER_URL}/api/v1/parametros/proyectos`,
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${data.token}`,
-                },
+        const server = process.env.VITE_BACKEND_SERVER_URL
+        const response = await fetch(`${server}/api/v1/parametros/proyectos`, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${data.token}`,
             },
-        )
+        })
 
         if (!response.ok) {
             const resData = await response.json()
