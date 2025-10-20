@@ -10,10 +10,16 @@ import {
     SheetTrigger,
 } from '@/components/ui/sheet'
 import { useAppForm } from '@/hooks/app.form'
+import {
+    createProyect,
+    type proyectCreateType,
+} from '@/queries/parametros/proyectos'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { PlusIcon } from 'lucide-react'
 import { useState } from 'react'
 
-export function NewProyectSheet() {
+export function NewProyectSheet({ token }: Readonly<{ token: string }>) {
+    const queryClient = useQueryClient()
     const [open, setOpen] = useState<boolean>(false)
     const form = useAppForm({
         defaultValues: {
@@ -23,8 +29,36 @@ export function NewProyectSheet() {
             net_area: 0,
         },
         onSubmit: async ({ value }) => {
-            console.log('data', value)
+            const project: proyectCreateType = {
+                name: value.name,
+                is_active: value.is_active,
+                gross_area:
+                    typeof value.gross_area === 'string'
+                        ? Number.parseFloat(value.gross_area)
+                        : value.gross_area,
+                net_area:
+                    typeof value.net_area === 'string'
+                        ? Number.parseFloat(value.net_area)
+                        : value.net_area,
+            }
+            mutation.mutate(project)
+        },
+    })
+
+    const mutation = useMutation({
+        mutationFn: async (data: proyectCreateType) =>
+            await createProyect(token, data),
+        onSuccess: () => {
             setOpen(false)
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries({
+                queryKey: ['proyectos'],
+            })
+        },
+        onError: (error) => {
+            alert(error.message)
+            console.error(error)
         },
     })
 

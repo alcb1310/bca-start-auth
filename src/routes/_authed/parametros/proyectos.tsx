@@ -10,7 +10,7 @@ import {
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 import type { ColumnDef } from '@tanstack/react-table'
-import { PencilIcon, PlusIcon, TrashIcon } from 'lucide-react'
+import { PencilIcon, TrashIcon } from 'lucide-react'
 
 export const Route = createFileRoute('/_authed/parametros/proyectos')({
     component: RouteComponent,
@@ -91,7 +91,7 @@ function RouteComponent() {
     return (
         <div>
             <H4>Proyectos</H4>
-            <NewProyectSheet />
+            <NewProyectSheet token={token} />
 
             <DataTable data={proyectos} columns={column} />
         </div>

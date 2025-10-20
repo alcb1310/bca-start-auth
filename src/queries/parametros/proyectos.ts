@@ -11,6 +11,13 @@ export type proyectsResponseType = {
     last_closure?: Date
 }
 
+export type proyectCreateType = {
+    name: string
+    is_active: boolean
+    gross_area: number
+    net_area: number
+}
+
 export const getAllProyectos = createServerFn({ method: 'GET' })
     .inputValidator((data: { token: string }) => data)
     .handler(async ({ data }) => {
@@ -30,3 +37,22 @@ export const getAllProyectos = createServerFn({ method: 'GET' })
         const resData = (await response.json()) as proyectsResponseType[]
         return resData
     })
+
+export async function createProyect(token: string, data: proyectCreateType) {
+    console.log('server', server)
+    const response = await fetch(`${server}/api/v1/parametros/proyectos`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+    })
+    console.log('response', response)
+    if (!response.ok) {
+        const resData = await response.json()
+        console.error('Network response was not ok', resData)
+        throw new Error(`Network response was not ok ${resData.Message}`)
+    }
+    return
+}
