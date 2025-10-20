@@ -11,7 +11,6 @@ import {
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 import type { ColumnDef } from '@tanstack/react-table'
-import { TrashIcon } from 'lucide-react'
 
 export const Route = createFileRoute('/_authed/parametros/proyectos')({
     component: RouteComponent,
@@ -76,13 +75,6 @@ function RouteComponent() {
             accessorKey: 'actions',
             cell: ({ row }) => (
                 <div className='flex items-center gap-2'>
-                    <Button
-                        variant='ghost'
-                        className='text-destructive'
-                        size='sm'
-                    >
-                        <TrashIcon />
-                    </Button>
                     <ProyectSheet proyect={row.original} token={token} />
                 </div>
             ),
