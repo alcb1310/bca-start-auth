@@ -1,12 +1,8 @@
 import { AppSidebar } from '@/components/sidebar/app-sidebar'
 import { ModeToggle } from '@/components/theme/mode-toggle'
 import { Button } from '@/components/ui/button'
-import {
-    SidebarInset,
-    SidebarProvider,
-    SidebarTrigger,
-} from '@/components/ui/sidebar'
-import { H4 } from '@/components/ui/typography'
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
+import { H2 } from '@/components/ui/typography'
 import { UserActions } from '@/components/users/user-actions'
 import { authClient } from '@/lib/auth-client'
 import { getUser } from '@/lib/auth-server'
@@ -52,8 +48,7 @@ function RouteComponent() {
             <AppSidebar variant='inset' collapsible='icon' />
             <SidebarInset>
                 <nav className='flex items-center justify-between p-4'>
-                    <SidebarTrigger />
-                    <H4>Sistema Control Presupuestario</H4>
+                    <H2>Sistema Control Presupuestario</H2>
                     <div>
                         <UserActions />
                         <ModeToggle />
