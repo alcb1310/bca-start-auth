@@ -17,6 +17,7 @@ import {
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { PlusIcon } from 'lucide-react'
 import { useState } from 'react'
+import { toast } from 'sonner'
 
 export function NewProyectSheet({ token }: Readonly<{ token: string }>) {
     const queryClient = useQueryClient()
@@ -49,6 +50,7 @@ export function NewProyectSheet({ token }: Readonly<{ token: string }>) {
         mutationFn: async (data: proyectCreateType) =>
             await createProyect(token, data),
         onSuccess: () => {
+            toast.success('Proyecto creado con exito')
             setOpen(false)
         },
         onSettled: () => {
@@ -57,8 +59,10 @@ export function NewProyectSheet({ token }: Readonly<{ token: string }>) {
             })
         },
         onError: (error) => {
-            alert(error.message)
-            console.error(error)
+            toast.error('Error al crear el proyecto', {
+                description: error.message,
+                position: 'top-center',
+            })
         },
     })
 
