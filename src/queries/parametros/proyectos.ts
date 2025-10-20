@@ -48,11 +48,10 @@ export async function createProyect(token: string, data: proyectCreateType) {
         },
         body: JSON.stringify(data),
     })
-    console.log('response', response)
     if (!response.ok) {
         const resData = await response.json()
         console.error('Network response was not ok', resData)
-        throw new Error(`Network response was not ok ${resData.Message}`)
+        throw new Error(resData.error)
     }
     return
 }
