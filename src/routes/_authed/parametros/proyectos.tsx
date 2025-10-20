@@ -1,3 +1,4 @@
+import { ProyectSheet } from '@/components/drawers/parametros/edit-projects'
 import { NewProyectSheet } from '@/components/drawers/parametros/new-project'
 import { DataTable } from '@/components/ui/DataTable'
 import { Button } from '@/components/ui/button'
@@ -10,7 +11,7 @@ import {
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 import type { ColumnDef } from '@tanstack/react-table'
-import { PencilIcon, TrashIcon } from 'lucide-react'
+import { TrashIcon } from 'lucide-react'
 
 export const Route = createFileRoute('/_authed/parametros/proyectos')({
     component: RouteComponent,
@@ -62,11 +63,14 @@ function RouteComponent() {
         {
             header: 'Activo',
             accessorKey: 'is_active',
-            cell: ({ row }) => (
-                <div className='flex items-center justify-center'>
-                    <Switch checked={row.original.is_active} disabled />
-                </div>
-            ),
+            cell: ({ row }) => {
+                console.log(row.original)
+                return (
+                    <div className='flex items-center justify-center'>
+                        <Switch checked={row.original.is_active} disabled />
+                    </div>
+                )
+            },
         },
         {
             header: 'Acciones',
@@ -80,9 +84,7 @@ function RouteComponent() {
                     >
                         <TrashIcon />
                     </Button>
-                    <Button variant='ghost' className='text-warning' size='sm'>
-                        <PencilIcon />
-                    </Button>
+                    <ProyectSheet proyect={row.original} />
                 </div>
             ),
         },
