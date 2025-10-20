@@ -16,7 +16,7 @@ import {
 } from '@/queries/parametros/proyectos'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { PlusIcon } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
 export function NewProyectSheet({ token }: Readonly<{ token: string }>) {
@@ -65,6 +65,11 @@ export function NewProyectSheet({ token }: Readonly<{ token: string }>) {
             })
         },
     })
+
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+    useEffect(() => {
+        form.reset()
+    }, [open])
 
     return (
         <Sheet modal={false} open={open} onOpenChange={setOpen}>
