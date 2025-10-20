@@ -54,3 +54,23 @@ export async function createProyect(token: string, data: proyectCreateType) {
     }
     return
 }
+
+export async function updateProyect(token: string, data: proyectsResponseType) {
+    const response = await fetch(
+        `${server}/api/v1/parametros/proyectos/${data.id}`,
+        {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(data),
+        },
+    )
+    if (!response.ok) {
+        const resData = await response.json()
+        console.error('Network response was not ok', resData)
+        throw new Error(resData.error)
+    }
+    return
+}

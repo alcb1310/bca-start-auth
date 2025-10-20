@@ -83,7 +83,7 @@ function RouteComponent() {
                     >
                         <TrashIcon />
                     </Button>
-                    <ProyectSheet proyect={row.original} />
+                    <ProyectSheet proyect={row.original} token={token} />
                 </div>
             ),
         },

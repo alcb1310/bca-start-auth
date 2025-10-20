@@ -10,12 +10,21 @@ import {
     SheetTrigger,
 } from '@/components/ui/sheet'
 import { useAppForm } from '@/hooks/app.form'
-import type { proyectsResponseType } from '@/queries/parametros/proyectos'
+import {
+    type proyectsResponseType,
+    updateProyect,
+} from '@/queries/parametros/proyectos'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { PencilIcon } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { toast } from 'sonner'
 
 export function ProyectSheet({
     proyect,
-}: Readonly<{ proyect: proyectsResponseType }>) {
+    token,
+}: Readonly<{ proyect: proyectsResponseType; token: string }>) {
+    const queryClient = useQueryClient()
+    const [open, setOpen] = useState<boolean>(false)
     const form = useAppForm({
         defaultValues: {
             name: proyect.name,
@@ -24,12 +33,50 @@ export function ProyectSheet({
             net_area: proyect.net_area,
         },
         onSubmit: async ({ value }) => {
-            console.log('data', value)
+            const proyecto: proyectsResponseType = {
+                id: proyect.id,
+                name: value.name,
+                is_active: value.is_active,
+                gross_area:
+                    typeof value.gross_area === 'string'
+                        ? Number.parseFloat(value.gross_area)
+                        : value.gross_area,
+                net_area:
+                    typeof value.net_area === 'string'
+                        ? Number.parseFloat(value.net_area)
+                        : value.net_area,
+            }
+            mutation.mutate(proyecto)
         },
     })
 
+    const mutation = useMutation({
+        mutationFn: async (data: proyectsResponseType) =>
+            await updateProyect(token, data),
+        onSuccess: () => {
+            toast.success('Proyecto actualizado con exito')
+            setOpen(false)
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries({
+                queryKey: ['proyectos'],
+            })
+        },
+        onError: (error) => {
+            toast.error('Error al actualizar el proyecto', {
+                description: error.message,
+                position: 'top-center',
+            })
+        },
+    })
+
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+    useEffect(() => {
+        form.reset()
+    }, [open])
+
     return (
-        <Sheet>
+        <Sheet modal={false} open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
                 <Button variant='ghost' className='text-warning' size='sm'>
                     <PencilIcon />
