@@ -39,7 +39,6 @@ export const getAllProyectos = createServerFn({ method: 'GET' })
     })
 
 export async function createProyect(token: string, data: proyectCreateType) {
-    console.log('server', server)
     const response = await fetch(`${server}/api/v1/parametros/proyectos`, {
         method: 'POST',
         headers: {

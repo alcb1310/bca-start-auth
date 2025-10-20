@@ -83,7 +83,6 @@ export function NewProyectSheet({ token }: Readonly<{ token: string }>) {
                     onSubmit={(e) => {
                         e.preventDefault()
                         e.stopPropagation()
-                        console.log('submit')
                         form.handleSubmit()
                     }}
                 >

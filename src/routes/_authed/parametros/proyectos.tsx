@@ -64,7 +64,6 @@ function RouteComponent() {
             header: 'Activo',
             accessorKey: 'is_active',
             cell: ({ row }) => {
-                console.log(row.original)
                 return (
                     <div className='flex items-center justify-center'>
                         <Switch checked={row.original.is_active} disabled />
