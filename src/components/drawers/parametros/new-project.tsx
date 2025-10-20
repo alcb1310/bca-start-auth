@@ -75,6 +75,9 @@ export function NewProyectSheet() {
                                 />
                             )}
                         </form.AppField>
+                        <form.AppField name='is_active'>
+                            {(field) => <field.SwitchField label='Activo' />}
+                        </form.AppField>
                     </div>
                     <SheetFooter>
                         <form.AppForm>
