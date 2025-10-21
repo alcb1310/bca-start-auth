@@ -8,7 +8,7 @@ export const getHealth = createServerFn({ method: 'GET' })
     .inputValidator((data: { token: string }) => data)
     .handler(async ({ data }) => {
         const response = await fetch(
-            `${process.env.BACKEND_SERVER_URL}/api/v1/health`,
+            `${process.env.VITE_BACKEND_SERVER_URL}/api/v1/health`,
             {
                 headers: {
                     'Content-Type': 'application/json',
