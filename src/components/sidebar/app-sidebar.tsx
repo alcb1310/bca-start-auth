@@ -88,7 +88,11 @@ const menuObjects: MenuGroup[] = [
                 url: '/parametros/proyectos',
                 icon: FolderKanbanIcon,
             },
-            { title: 'Proveedores', url: '#', icon: CableIcon },
+            {
+                title: 'Proveedores',
+                url: '/parametros/proveedores',
+                icon: CableIcon,
+            },
             { title: 'Rubros', url: '#', icon: ShoppingBasketIcon },
         ],
     },
