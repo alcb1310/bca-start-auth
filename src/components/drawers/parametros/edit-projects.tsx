@@ -52,7 +52,7 @@ export function ProyectSheet({
 
     const mutation = useMutation({
         mutationFn: async (data: proyectsResponseType) =>
-            await updateProyect(token, data),
+            await updateProyect({ data: { token, data } }),
         onSuccess: () => {
             toast.success('Proyecto actualizado con exito')
             setOpen(false)

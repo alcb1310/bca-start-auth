@@ -48,7 +48,7 @@ export function NewProyectSheet({ token }: Readonly<{ token: string }>) {
 
     const mutation = useMutation({
         mutationFn: async (data: proyectCreateType) =>
-            await createProyect(token, data),
+            await createProyect({ data: { token, data } }),
         onSuccess: () => {
             toast.success('Proyecto creado con exito')
             setOpen(false)

@@ -1,6 +1,6 @@
 import { createServerFn } from '@tanstack/react-start'
 
-const server = import.meta.env.VITE_BACKEND_SERVER_URL
+const server = process.env.VITE_BACKEND_SERVER_URL
 
 export type proyectsResponseType = {
     id: string
@@ -21,7 +21,6 @@ export type proyectCreateType = {
 export const getAllProyectos = createServerFn({ method: 'GET' })
     .inputValidator((data: { token: string }) => data)
     .handler(async ({ data }) => {
-        const server = process.env.VITE_BACKEND_SERVER_URL
         const response = await fetch(`${server}/api/v1/parametros/proyectos`, {
             headers: {
                 'Content-Type': 'application/json',
@@ -38,39 +37,45 @@ export const getAllProyectos = createServerFn({ method: 'GET' })
         return resData
     })
 
-export async function createProyect(token: string, data: proyectCreateType) {
-    const response = await fetch(`${server}/api/v1/parametros/proyectos`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(data),
-    })
-    if (!response.ok) {
-        const resData = await response.json()
-        console.error('Network response was not ok', resData)
-        throw new Error(resData.error)
-    }
-    return
-}
-
-export async function updateProyect(token: string, data: proyectsResponseType) {
-    const response = await fetch(
-        `${server}/api/v1/parametros/proyectos/${data.id}`,
-        {
-            method: 'PUT',
+export const createProyect = createServerFn({ method: 'POST' })
+    .inputValidator((data: { token: string; data: proyectCreateType }) => data)
+    .handler(async ({ data: { token, data } }) => {
+        const response = await fetch(`${server}/api/v1/parametros/proyectos`, {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify(data),
-        },
+        })
+        if (!response.ok) {
+            const resData = await response.json()
+            console.error('Network response was not ok', resData)
+            throw new Error(resData.error)
+        }
+        return
+    })
+
+export const updateProyect = createServerFn({ method: 'POST' })
+    .inputValidator(
+        (data: { token: string; data: proyectsResponseType }) => data,
     )
-    if (!response.ok) {
-        const resData = await response.json()
-        console.error('Network response was not ok', resData)
-        throw new Error(resData.error)
-    }
-    return
-}
+    .handler(async ({ data: { token, data } }) => {
+        const response = await fetch(
+            `${server}/api/v1/parametros/proyectos/${data.id}`,
+            {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(data),
+            },
+        )
+        if (!response.ok) {
+            const resData = await response.json()
+            console.error('Network response was not ok', resData)
+            throw new Error(resData.error)
+        }
+        return
+    })
