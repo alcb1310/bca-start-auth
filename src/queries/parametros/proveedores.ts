@@ -11,6 +11,14 @@ export type suppliersResponseType = {
     contact_phone?: string
 }
 
+export type suppliersCreateType = {
+    supplier_id: string
+    name: string
+    contact_name?: string
+    contact_email?: string
+    contact_phone?: string
+}
+
 export const getAllProveeodres = createServerFn({ method: 'GET' })
     .inputValidator((data: { token: string }) => data)
     .handler(async ({ data }) => {
@@ -27,7 +35,7 @@ export const getAllProveeodres = createServerFn({ method: 'GET' })
         if (!response.ok) {
             const resData = await response.json()
             console.error('Network response was not ok', resData)
-            throw new Error(`Network response was not ok ${resData.Message}`)
+            throw new Error(resData.error)
         }
         const resData = (await response.json()) as suppliersResponseType[]
         return resData

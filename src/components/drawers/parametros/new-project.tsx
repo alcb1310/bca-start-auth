@@ -66,7 +66,7 @@ export function NewProyectSheet({ token }: Readonly<{ token: string }>) {
         },
     })
 
-    // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+    // biome-ignore lint/correctness/useExhaustiveDependencies: Reset form on open
     useEffect(() => {
         form.reset()
     }, [open])
