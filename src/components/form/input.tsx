@@ -39,7 +39,9 @@ export function TextField({
                 {...props}
             />
             {description && <FieldDescription>{description}</FieldDescription>}
-            {field.state.meta.isTouched && <FieldError>{errors}</FieldError>}
+            {field.state.meta.isTouched && !field.state.meta.isValid && (
+                <FieldError>{errors[0].message}</FieldError>
+            )}
         </Field>
     )
 }

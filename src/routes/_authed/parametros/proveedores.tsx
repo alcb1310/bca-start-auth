@@ -30,7 +30,6 @@ function RouteComponent() {
         queryKey: ['proveedores'],
         queryFn: () => getAllProveeodres({ data: { token: token } }),
     })
-    console.log(proveedores)
 
     const column: ColumnDef<suppliersResponseType>[] = [
         { header: 'RUC', accessorKey: 'supplier_id' },

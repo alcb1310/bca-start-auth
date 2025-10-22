@@ -12,7 +12,10 @@ import {
     SheetTrigger,
 } from '@/components/ui/sheet'
 import { useAppForm } from '@/hooks/app.form'
-import type { suppliersCreateType } from '@/queries/parametros/proveedores'
+import {
+    suppliersCreateSchema,
+    type suppliersCreateType,
+} from '@/queries/parametros/proveedores'
 import { PlusIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
@@ -26,6 +29,9 @@ export function NewProveedorSheet({ token }: Readonly<{ token: string }>) {
             contact_email: '',
             contact_phone: '',
         } satisfies suppliersCreateType as suppliersCreateType,
+        validators: {
+            onSubmit: suppliersCreateSchema,
+        },
         onSubmit: async ({ value }) => {
             console.log(value, token)
         },
@@ -49,28 +55,30 @@ export function NewProveedorSheet({ token }: Readonly<{ token: string }>) {
                     <SheetTitle>Crear Proveedor</SheetTitle>
                     <SheetDescription>Crea un nuevo proveedor</SheetDescription>
                 </SheetHeader>
-                <form
-                    onSubmit={(e) => {
-                        e.preventDefault()
-                        e.stopPropagation()
-                        form.handleSubmit()
-                    }}
-                >
-                    <FieldGroup>
-                        <ProveedorForm form={form} />
-                    </FieldGroup>
-                    <SheetFooter>
-                        <form.AppForm>
-                            <form.SuscribeButton
-                                label='Guardar'
-                                className='w-full'
-                            />
-                        </form.AppForm>
-                        <SheetClose asChild>
-                            <Button variant='outline'>Cancelar</Button>
-                        </SheetClose>
-                    </SheetFooter>
-                </form>
+                <div className='p-4'>
+                    <form
+                        onSubmit={(e) => {
+                            e.preventDefault()
+                            e.stopPropagation()
+                            form.handleSubmit()
+                        }}
+                    >
+                        <FieldGroup>
+                            <ProveedorForm form={form} />
+                        </FieldGroup>
+                        <SheetFooter>
+                            <form.AppForm>
+                                <form.SuscribeButton
+                                    label='Guardar'
+                                    className='w-full'
+                                />
+                            </form.AppForm>
+                            <SheetClose asChild>
+                                <Button variant='outline'>Cancelar</Button>
+                            </SheetClose>
+                        </SheetFooter>
+                    </form>
+                </div>
             </SheetContent>
         </Sheet>
     )

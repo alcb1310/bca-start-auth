@@ -1,4 +1,5 @@
 import { createServerFn } from '@tanstack/react-start'
+import * as z from 'zod'
 
 const server = process.env.VITE_BACKEND_SERVER_URL
 
@@ -11,13 +12,15 @@ export type suppliersResponseType = {
     contact_phone?: string
 }
 
-export type suppliersCreateType = {
-    supplier_id: string
-    name: string
-    contact_name?: string
-    contact_email?: string
-    contact_phone?: string
-}
+export const suppliersCreateSchema = z.object({
+    supplier_id: z.string(),
+    name: z.string(),
+    contact_name: z.string().optional(),
+    contact_email: z.string().optional(),
+    contact_phone: z.string().optional(),
+})
+
+export type suppliersCreateType = z.infer<typeof suppliersCreateSchema>
 
 export const getAllProveeodres = createServerFn({ method: 'GET' })
     .inputValidator((data: { token: string }) => data)
