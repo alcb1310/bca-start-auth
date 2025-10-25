@@ -43,3 +43,28 @@ export const getAllProveeodres = createServerFn({ method: 'GET' })
         const resData = (await response.json()) as suppliersResponseType[]
         return resData
     })
+
+export const createProveedor = createServerFn({ method: 'POST' })
+    .inputValidator(
+        (data: { token: string; data: suppliersCreateType }) => data,
+    )
+    .handler(async ({ data: { token, data } }) => {
+        const response = await fetch(
+            `${server}/api/v1/parametros/proveedores`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(data),
+            },
+        )
+        console.log(response)
+        if (!response.ok) {
+            const resData = await response.json()
+            console.error('Network response was not ok', resData)
+            throw new Error(resData.error)
+        }
+        return
+    })

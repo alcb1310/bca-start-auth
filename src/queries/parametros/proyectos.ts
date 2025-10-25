@@ -27,6 +27,7 @@ export const getAllProyectos = createServerFn({ method: 'GET' })
                 Authorization: `Bearer ${data.token}`,
             },
         })
+        console.log('response', response)
 
         if (!response.ok) {
             const resData = await response.json()
