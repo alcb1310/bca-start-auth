@@ -13,13 +13,17 @@ import {
 } from '@/components/ui/sheet'
 import { useAppForm } from '@/hooks/app.form'
 import {
+    createProveedor,
     suppliersCreateSchema,
     type suppliersCreateType,
 } from '@/queries/parametros/proveedores'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { PlusIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { toast } from 'sonner'
 
 export function NewProveedorSheet({ token }: Readonly<{ token: string }>) {
+    const queryClient = useQueryClient()
     const [open, setOpen] = useState<boolean>(false)
     const form = useAppForm({
         defaultValues: {
@@ -33,7 +37,25 @@ export function NewProveedorSheet({ token }: Readonly<{ token: string }>) {
             onSubmit: suppliersCreateSchema,
         },
         onSubmit: async ({ value }) => {
-            console.log(value, token)
+            mutation.mutate(value)
+        },
+    })
+
+    const mutation = useMutation({
+        mutationFn: async (data: suppliersCreateType) =>
+            await createProveedor({ data: { token, data } }),
+        onError: (errors) => {
+            console.log(errors)
+            toast.error(`Error al crear el proveedor: ${errors.message}`)
+        },
+        onSuccess: () => {
+            toast.success('Proveedor creado con exito')
+            setOpen(false)
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries({
+                queryKey: ['proveedores'],
+            })
         },
     })
 
