@@ -24,11 +24,7 @@ export function ProveedorForm({ form }: Readonly<{ form: any }>) {
                 </form.AppField>
                 <form.AppField name='contact_email'>
                     {(field) => (
-                        <field.TextField
-                            label='Email'
-                            placeholder='Email'
-                            type='email'
-                        />
+                        <field.TextField label='Email' placeholder='Email' />
                     )}
                 </form.AppField>
                 <form.AppField name='contact_phone'>

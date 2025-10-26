@@ -12,11 +12,20 @@ export type suppliersResponseType = {
     contact_phone?: string
 }
 
+const optionalTextInput = (schema: z.ZodString) =>
+    z
+        .union([z.string(), z.undefined()])
+        .refine((val) => !val || schema.safeParse(val).success)
+
+const emailInputSchema = optionalTextInput(
+    z.string().email({ message: 'Email no válido' }),
+)
+
 export const suppliersCreateSchema = z.object({
-    supplier_id: z.string(),
-    name: z.string(),
+    supplier_id: z.string().trim().min(1, { message: 'RUC es requerido' }),
+    name: z.string().trim().min(1, { message: 'Nombre es requerido' }),
     contact_name: z.string().optional(),
-    contact_email: z.string().optional(),
+    contact_email: emailInputSchema,
     contact_phone: z.string().optional(),
 })
 
