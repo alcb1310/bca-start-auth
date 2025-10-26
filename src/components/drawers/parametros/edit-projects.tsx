@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/sheet'
 import { useAppForm } from '@/hooks/app.form'
 import {
+    proyectResponseSchema,
     type proyectsResponseType,
     updateProyect,
 } from '@/queries/parametros/proyectos'
@@ -27,25 +28,18 @@ export function ProyectSheet({
     const [open, setOpen] = useState<boolean>(false)
     const form = useAppForm({
         defaultValues: {
+            id: proyect.id,
             name: proyect.name,
             is_active: proyect.is_active,
             gross_area: proyect.gross_area,
             net_area: proyect.net_area,
+        } satisfies proyectsResponseType as proyectsResponseType,
+        validators: {
+            // @ts-ignore
+            onSubmit: proyectResponseSchema,
         },
         onSubmit: async ({ value }) => {
-            const proyecto: proyectsResponseType = {
-                id: proyect.id,
-                name: value.name,
-                is_active: value.is_active,
-                gross_area:
-                    typeof value.gross_area === 'string'
-                        ? Number.parseFloat(value.gross_area)
-                        : value.gross_area,
-                net_area:
-                    typeof value.net_area === 'string'
-                        ? Number.parseFloat(value.net_area)
-                        : value.net_area,
-            }
+            const proyecto = proyectResponseSchema.parse(value)
             mutation.mutate(proyecto)
         },
     })
@@ -102,7 +96,6 @@ export function ProyectSheet({
                                 <field.TextField
                                     label='Nombre *'
                                     placeholder='Nombre del proyecto'
-                                    required
                                 />
                             )}
                         </form.AppField>
