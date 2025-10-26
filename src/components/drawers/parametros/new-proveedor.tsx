@@ -45,7 +45,7 @@ export function NewProveedorSheet({ token }: Readonly<{ token: string }>) {
         mutationFn: async (data: suppliersCreateType) =>
             await createProveedor({ data: { token, data } }),
         onError: (errors) => {
-            console.log(errors)
+            console.error(errors)
             toast.error(`Error al crear el proveedor: ${errors.message}`)
         },
         onSuccess: () => {

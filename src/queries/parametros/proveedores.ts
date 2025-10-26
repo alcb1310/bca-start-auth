@@ -62,7 +62,30 @@ export const createProveedor = createServerFn({ method: 'POST' })
                 body: JSON.stringify(data),
             },
         )
-        console.log(response)
+        if (!response.ok) {
+            const resData = await response.json()
+            console.error('Network response was not ok', resData)
+            throw new Error(resData.error)
+        }
+        return
+    })
+
+export const updateProveedor = createServerFn({ method: 'POST' })
+    .inputValidator(
+        (data: { token: string; data: suppliersResponseType }) => data,
+    )
+    .handler(async ({ data: { token, data } }) => {
+        const response = await fetch(
+            `${server}/api/v1/parametros/proveedores/${data.id}`,
+            {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(data),
+            },
+        )
         if (!response.ok) {
             const resData = await response.json()
             console.error('Network response was not ok', resData)
