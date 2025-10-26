@@ -77,30 +77,28 @@ export function NewProveedorSheet({ token }: Readonly<{ token: string }>) {
                     <SheetTitle>Crear Proveedor</SheetTitle>
                     <SheetDescription>Crea un nuevo proveedor</SheetDescription>
                 </SheetHeader>
-                <div className='p-4'>
-                    <form
-                        onSubmit={(e) => {
-                            e.preventDefault()
-                            e.stopPropagation()
-                            form.handleSubmit()
-                        }}
-                    >
-                        <FieldGroup>
-                            <ProveedorForm form={form} />
-                        </FieldGroup>
-                        <SheetFooter>
-                            <form.AppForm>
-                                <form.SuscribeButton
-                                    label='Guardar'
-                                    className='w-full'
-                                />
-                            </form.AppForm>
-                            <SheetClose asChild>
-                                <Button variant='outline'>Cancelar</Button>
-                            </SheetClose>
-                        </SheetFooter>
-                    </form>
-                </div>
+                <form
+                    onSubmit={(e) => {
+                        e.preventDefault()
+                        e.stopPropagation()
+                        form.handleSubmit()
+                    }}
+                >
+                    <FieldGroup className='px-4'>
+                        <ProveedorForm form={form} />
+                    </FieldGroup>
+                    <SheetFooter>
+                        <form.AppForm>
+                            <form.SuscribeButton
+                                label='Guardar'
+                                className='w-full'
+                            />
+                        </form.AppForm>
+                        <SheetClose asChild>
+                            <Button variant='outline'>Cancelar</Button>
+                        </SheetClose>
+                    </SheetFooter>
+                </form>
             </SheetContent>
         </Sheet>
     )
