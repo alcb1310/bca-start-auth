@@ -1,3 +1,4 @@
+import { EditProveedorSheet } from '@/components/drawers/parametros/edit-proveedor'
 import { NewProveedorSheet } from '@/components/drawers/parametros/new-proveedor'
 import { DataTable } from '@/components/ui/DataTable'
 import { H4 } from '@/components/ui/typography'
@@ -8,7 +9,6 @@ import {
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 import type { ColumnDef } from '@tanstack/react-table'
-import { PencilIcon } from 'lucide-react'
 
 export const Route = createFileRoute('/_authed/parametros/proveedores')({
     component: RouteComponent,
@@ -40,7 +40,9 @@ function RouteComponent() {
         {
             header: 'Acciones',
             accessorKey: 'actions',
-            cell: () => <PencilIcon className='text-warning' />,
+            cell: ({ row }) => (
+                <EditProveedorSheet token={token} proveedor={row.original} />
+            ),
         },
     ]
 
