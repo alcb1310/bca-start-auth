@@ -1,25 +1,17 @@
+import { emailInputSchema } from '@/utils/optionalEmail'
 import { createServerFn } from '@tanstack/react-start'
 import * as z from 'zod'
 
 const server = process.env.VITE_BACKEND_SERVER_URL
 
-export type suppliersResponseType = {
-    id: string
-    supplier_id: string
-    name: string
-    contact_name?: string
-    contact_email?: string
-    contact_phone?: string
-}
-
-const optionalTextInput = (schema: z.ZodString) =>
-    z
-        .union([z.string(), z.undefined()])
-        .refine((val) => !val || schema.safeParse(val).success)
-
-const emailInputSchema = optionalTextInput(
-    z.string().email({ message: 'Email no válido' }),
-)
+export const suppliersResponseSchema = z.object({
+    id: z.string(),
+    supplier_id: z.string().trim().min(1, { message: 'RUC es requerido' }),
+    name: z.string().trim().min(1, { message: 'Nombre es requerido' }),
+    contact_name: z.string().optional(),
+    contact_email: emailInputSchema,
+    contact_phone: z.string().optional(),
+})
 
 export const suppliersCreateSchema = z.object({
     supplier_id: z.string().trim().min(1, { message: 'RUC es requerido' }),
@@ -30,6 +22,7 @@ export const suppliersCreateSchema = z.object({
 })
 
 export type suppliersCreateType = z.infer<typeof suppliersCreateSchema>
+export type suppliersResponseType = z.infer<typeof suppliersResponseSchema>
 
 export const getAllProveeodres = createServerFn({ method: 'GET' })
     .inputValidator((data: { token: string }) => data)
@@ -50,7 +43,7 @@ export const getAllProveeodres = createServerFn({ method: 'GET' })
             throw new Error(resData.error)
         }
         const resData = (await response.json()) as suppliersResponseType[]
-        return resData
+        return resData ? resData : []
     })
 
 export const createProveedor = createServerFn({ method: 'POST' })
