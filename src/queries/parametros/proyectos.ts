@@ -1,4 +1,5 @@
 import { createServerFn } from '@tanstack/react-start'
+import z from 'zod'
 
 const server = process.env.VITE_BACKEND_SERVER_URL
 
@@ -11,12 +12,14 @@ export type proyectsResponseType = {
     last_closure?: Date
 }
 
-export type proyectCreateType = {
-    name: string
-    is_active: boolean
-    gross_area: number
-    net_area: number
-}
+export const proyectCreateSchema = z.object({
+    name: z.string().trim().min(1, { message: 'Nombre es requerido' }),
+    is_active: z.boolean(),
+    gross_area: z.coerce.number({ message: 'Ingrese un número válido' }),
+    net_area: z.coerce.number({ message: 'Ingrese un número válido' }),
+})
+
+export type proyectCreateType = z.infer<typeof proyectCreateSchema>
 
 export const getAllProyectos = createServerFn({ method: 'GET' })
     .inputValidator((data: { token: string }) => data)
@@ -27,7 +30,6 @@ export const getAllProyectos = createServerFn({ method: 'GET' })
                 Authorization: `Bearer ${data.token}`,
             },
         })
-        console.log('response', response)
 
         if (!response.ok) {
             const resData = await response.json()
@@ -35,7 +37,7 @@ export const getAllProyectos = createServerFn({ method: 'GET' })
             throw new Error(`Network response was not ok ${resData.Message}`)
         }
         const resData = (await response.json()) as proyectsResponseType[]
-        return resData
+        return resData ? resData : []
     })
 
 export const createProyect = createServerFn({ method: 'POST' })

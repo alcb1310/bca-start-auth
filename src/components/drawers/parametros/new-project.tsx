@@ -12,6 +12,7 @@ import {
 import { useAppForm } from '@/hooks/app.form'
 import {
     createProyect,
+    proyectCreateSchema,
     type proyectCreateType,
 } from '@/queries/parametros/proyectos'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -26,22 +27,15 @@ export function NewProyectSheet({ token }: Readonly<{ token: string }>) {
         defaultValues: {
             name: '',
             is_active: false,
-            gross_area: 0,
-            net_area: 0,
+            gross_area: 0.0,
+            net_area: 0.0,
+        } satisfies proyectCreateType as proyectCreateType,
+        validators: {
+            // @ts-ignore
+            onSubmit: proyectCreateSchema,
         },
         onSubmit: async ({ value }) => {
-            const project: proyectCreateType = {
-                name: value.name,
-                is_active: value.is_active,
-                gross_area:
-                    typeof value.gross_area === 'string'
-                        ? Number.parseFloat(value.gross_area)
-                        : value.gross_area,
-                net_area:
-                    typeof value.net_area === 'string'
-                        ? Number.parseFloat(value.net_area)
-                        : value.net_area,
-            }
+            const project = proyectCreateSchema.parse(value)
             mutation.mutate(project)
         },
     })
@@ -97,7 +91,6 @@ export function NewProyectSheet({ token }: Readonly<{ token: string }>) {
                                 <field.TextField
                                     label='Nombre *'
                                     placeholder='Nombre del proyecto'
-                                    required
                                 />
                             )}
                         </form.AppField>
