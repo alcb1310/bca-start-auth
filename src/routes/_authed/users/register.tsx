@@ -10,10 +10,20 @@ import {
 import { useAppForm } from '@/hooks/app.form'
 import { authClient } from '@/lib/auth-client'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { toast } from 'sonner'
+import z from 'zod'
 
 export const Route = createFileRoute('/_authed/users/register')({
     component: RouteComponent,
 })
+
+const registerSchema = z.object({
+    email: z.string().email(),
+    password: z.string().min(8),
+    name: z.string(),
+})
+
+type RegisterType = z.infer<typeof registerSchema>
 
 function RouteComponent() {
     const navigate = useNavigate()
@@ -22,6 +32,9 @@ function RouteComponent() {
             email: '',
             password: '',
             name: '',
+        } satisfies RegisterType as RegisterType,
+        validators: {
+            onSubmit: registerSchema,
         },
         onSubmit: async ({ value }) => {
             await authClient.signUp.email(
@@ -33,10 +46,14 @@ function RouteComponent() {
                 {
                     onSuccess: () => {
                         navigate({ to: '/users/admin' })
+                        toast.success('Usuario creada exitosamente')
                     },
                     onError: (error) => {
                         console.error(error)
-                        alert(error.error.message)
+                        toast.error('Error', {
+                            description: error.error.message,
+                            position: 'top-center',
+                        })
                     },
                 },
             )

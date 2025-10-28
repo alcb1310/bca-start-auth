@@ -3,15 +3,6 @@ import z from 'zod'
 
 const server = process.env.VITE_BACKEND_SERVER_URL
 
-// export type proyectsResponseType = {
-//     id: string
-//     name: string
-//     is_active: boolean
-//     gross_area: number
-//     net_area: number
-//     last_closure?: Date
-// }
-
 export const proyectResponseSchema = z.object({
     id: z.string().uuid(),
     name: z.string().trim().min(1, { message: 'Nombre es requerido' }),
