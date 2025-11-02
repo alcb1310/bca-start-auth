@@ -1,5 +1,5 @@
 import { createMiddleware } from '@tanstack/react-start'
-import { HEADERS, getRequest } from '@tanstack/react-start/server'
+import { getRequest } from '@tanstack/react-start/server'
 import { auth } from './auth'
 
 export const authMiddleware = createMiddleware({ type: 'function' }).server(

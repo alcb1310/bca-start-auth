@@ -9,10 +9,19 @@ import {
 import { useAppForm } from '@/hooks/app.form'
 import { authClient } from '@/lib/auth-client'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { toast } from 'sonner'
+import z from 'zod'
 
 export const Route = createFileRoute('/login')({
     component: RouteComponent,
 })
+
+const loginSchema = z.object({
+    email: z.string().email(),
+    password: z.string(),
+})
+
+type LoginType = z.infer<typeof loginSchema>
 
 function RouteComponent() {
     const navigate = useNavigate()
@@ -21,7 +30,7 @@ function RouteComponent() {
         defaultValues: {
             email: '',
             password: '',
-        },
+        } satisfies LoginType as LoginType,
         onSubmit: async ({ value }) => {
             await authClient.signIn.email(
                 {
@@ -33,8 +42,10 @@ function RouteComponent() {
                         navigate({ to: '/dashboard' })
                     },
                     onError: (error) => {
-                        console.error(error)
-                        alert(error.error.message)
+                        toast.error('Error', {
+                            description: error.error.message,
+                            position: 'top-center',
+                        })
                     },
                 },
             )
